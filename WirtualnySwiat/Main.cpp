@@ -15,7 +15,7 @@ int main() {
 		org->rysowanie();
 		cout << " ";
 	}
-	//TEST
+	//TEST 1
 	ziemia.wykonajTure();
 	cout << endl << endl;
 
