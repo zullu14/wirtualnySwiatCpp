@@ -5,6 +5,8 @@
 #include "Owca.h"
 #include <cstdlib>
 #include <iostream>
+#include <iomanip>
+#include <string>
 #include <ctime>
 #include <vector>
 #include <algorithm>
@@ -18,12 +20,17 @@ Swiat::Swiat(size_t rows, size_t cols)
 void Swiat::wykonajTure()
 {
 	sort(organizmy.begin(), organizmy.end(), porownajOrganizmy);
+	for (Organizm* org : organizmy) {
+		org->akcja();					// ERROR jezeli w trakcie dzialania usuwalismy organizmy, to sie pêtla nie spina...
+	}
 	// na koniec dolicz kolejn¹ turê
 	tura++;
+	rysujSwiat();
 }
 
 void Swiat::rysujSwiat()
 {
+	system("cls");
 	bool czyNarysowano = false;
 	for (size_t i = 0; i < cols + 2; i++)
 		cout << "#";
@@ -46,6 +53,11 @@ void Swiat::rysujSwiat()
 	for (size_t i = 0; i < cols + 2; i++)
 		cout << "#";
 	cout << endl;
+	cout << setw(cols + 2) << "***** Komunikaty *****" << endl;
+	for (string info : komunikaty) {
+		cout << info << endl;
+	}
+	komunikaty.clear();								// po wypisaniu komunikatow na te ture, usun je
 }
 
 void Swiat::stworzSwiat()
@@ -79,6 +91,12 @@ void Swiat::stworzSwiat()
 			i++;
 		}
 	}
+	rysujSwiat();
+}
+
+void Swiat::usunOrganizm(Organizm * org)
+{
+	//organizmy.erase(remove(organizmy.begin(), organizmy.end(), org), organizmy.end());
 }
 
 Swiat::~Swiat()

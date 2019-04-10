@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+using namespace std;
 class Swiat;
 
 class Organizm
@@ -7,7 +9,7 @@ public:
 	struct wspolrzedne { int x, y; };
 	Organizm(Swiat& srodowisko, wspolrzedne miejsce);
 	virtual void akcja() = 0;
-	virtual void kolizja(Organizm& drugi) = 0;
+	virtual void kolizja(Organizm* drugi) = 0;
 	virtual void rysowanie() const = 0;
 	virtual ~Organizm();
 
@@ -15,8 +17,9 @@ public:
 	int getInicjatywa() const { return inicjatywa; }
 	int getWiek() const { return wiek;  }
 	wspolrzedne getPolozenie() const { return polozenie; }
+	string getTyp() const { return typ; }
 
-	virtual bool czyOdbilAtak(const Organizm& atakujacy);
+	virtual bool czyOdbilAtak(const Organizm* atakujacy);
 
 protected:
 	int sila;
@@ -24,5 +27,6 @@ protected:
 	int wiek;
 	wspolrzedne polozenie;
 	Swiat& swiat;
+	string typ;
 };
 

@@ -7,23 +7,19 @@ using namespace std;
 
 
 int main() {
-	Swiat ziemia(10,20);
+	Swiat ziemia(10,30);
 	ziemia.stworzSwiat();
-	//ziemia.rysujSwiat();
-
-	for (Organizm* org : ziemia.getOrganizmy()) {
-		org->rysowanie();
-		cout << " ";
-	}
-	//TEST 1
-	ziemia.wykonajTure();
-	cout << endl << endl;
-
-	for (Organizm* org : ziemia.getOrganizmy()) {
-		org->rysowanie();
-		cout << " ";
-	}
-
 	system("pause");
+	ziemia.wykonajTure();
+	system("pause");
+	ziemia.wykonajTure();
+	system("pause");
+	ziemia.wykonajTure();
+	system("pause");
+	ziemia.wykonajTure();
+	system("pause");
+	ziemia.wykonajTure();
+	system("pause");
+
 	return 0;
 }

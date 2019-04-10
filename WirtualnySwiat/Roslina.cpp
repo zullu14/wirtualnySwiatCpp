@@ -6,7 +6,7 @@ void Roslina::akcja()
 	//TODO
 }
 
-void Roslina::kolizja(Organizm & drugi)
+void Roslina::kolizja(Organizm* drugi)
 {
 	//TODO
 }

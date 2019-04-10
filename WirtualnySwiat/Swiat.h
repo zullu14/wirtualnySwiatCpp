@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <string>
 #include "Organizm.h"
 using namespace std;
 
@@ -13,7 +14,9 @@ public:
 	int getTura() const { return tura; }
 	size_t getRows() const { return rows; }
 	size_t getCols() const { return cols; }
-	vector<Organizm*> getOrganizmy() const { return organizmy; }  // do TESTOWANIA
+	const vector<Organizm*>& getOrganizmy() const { return organizmy; }
+	void dodajKomunikat(string info) { komunikaty.push_back(info); }
+	void usunOrganizm(Organizm* org);
 	~Swiat();
 
 private:
@@ -21,5 +24,6 @@ private:
 	int tura;
 	size_t rows, cols;
 	friend bool porownajOrganizmy(Organizm* org1, Organizm* org2);
+	vector<string> komunikaty;
 };
 

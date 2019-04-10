@@ -12,7 +12,7 @@ Organizm::~Organizm()
 {
 }
 
-bool Organizm::czyOdbilAtak(const Organizm & atakujacy)
+bool Organizm::czyOdbilAtak(const Organizm* atakujacy)
 {
 	return false; // domyœlnie
 }
