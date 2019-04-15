@@ -6,6 +6,7 @@ Organizm::Organizm(Swiat& srodowisko, wspolrzedne miejsce)
 	: swiat{srodowisko}
 {
 	polozenie = miejsce;
+	czyZyje = true;
 }
 
 Organizm::~Organizm()

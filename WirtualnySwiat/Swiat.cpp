@@ -20,9 +20,18 @@ Swiat::Swiat(size_t rows, size_t cols)
 void Swiat::wykonajTure()
 {
 	sort(organizmy.begin(), organizmy.end(), porownajOrganizmy);
+	// po kolei wykonaj akcje
 	for (Organizm* org : organizmy) {
-		org->akcja();					// ERROR jezeli w trakcie dzialania usuwalismy organizmy, to sie pêtla nie spina...
+		if(org->getCzyZyje())
+			org->akcja();
 	}
+	
+	// nastêpnie usuñ z listy organizmów wszystkie nie¿ywe
+	for (int i = 0; i < organizmy.size(); i++) {
+		if (!organizmy[i]->getCzyZyje())
+			organizmy.erase(organizmy.begin()+i);
+	}
+	
 	// na koniec dolicz kolejn¹ turê
 	tura++;
 	rysujSwiat();
@@ -96,7 +105,7 @@ void Swiat::stworzSwiat()
 
 void Swiat::usunOrganizm(Organizm * org)
 {
-	//organizmy.erase(remove(organizmy.begin(), organizmy.end(), org), organizmy.end());
+	organizmy.erase(remove(organizmy.begin(), organizmy.end(), org), organizmy.end());
 }
 
 Swiat::~Swiat()

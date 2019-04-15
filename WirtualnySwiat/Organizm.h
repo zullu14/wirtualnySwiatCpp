@@ -18,6 +18,8 @@ public:
 	int getWiek() const { return wiek;  }
 	wspolrzedne getPolozenie() const { return polozenie; }
 	string getTyp() const { return typ; }
+	bool getCzyZyje() const { return czyZyje; }
+	void setCzyZyje(bool stan) { czyZyje = stan; }
 
 	virtual bool czyOdbilAtak(const Organizm* atakujacy);
 
@@ -25,6 +27,7 @@ protected:
 	int sila;
 	int inicjatywa;
 	int wiek;
+	bool czyZyje;
 	wspolrzedne polozenie;
 	Swiat& swiat;
 	string typ;

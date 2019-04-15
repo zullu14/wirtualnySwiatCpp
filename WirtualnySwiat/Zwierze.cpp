@@ -95,11 +95,11 @@ void Zwierze::kolizja(Organizm* drugi)
 			polozenie.x = drugi->getPolozenie().x;			// pierwszy zajmuje miejsce drugiego
 			polozenie.y = drugi->getPolozenie().y;
 			swiat.dodajKomunikat(this->typ + " zabija " + drugi->getTyp() + " na pozycji " + to_string(polozenie.x) + "," + to_string(polozenie.y) + ". ");
-			swiat.usunOrganizm(drugi);						// usuniêcie drugiego z listy organizmów
+			drugi->setCzyZyje(false);						// ustawienie stanu drugiego organizmu na nie¿ywy
 		}
 		else {												// na odwort: drugi zabija pierwszego
 			swiat.dodajKomunikat(drugi->getTyp() + " zabija " + this->typ + " na pozycji " + to_string(drugi->getPolozenie().x) + "," + to_string(drugi->getPolozenie().y) + ". ");
-			swiat.usunOrganizm(this);						// usuniêcie tego organizmu z listy organizmów
+			this->setCzyZyje(false);						// ustawienie stanu tego organizmu na nie¿ywy
 		}
 	}
 }
