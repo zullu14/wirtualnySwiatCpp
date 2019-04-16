@@ -27,11 +27,14 @@ void Swiat::wykonajTure()
 	}
 	
 	// nastêpnie usuñ z listy organizmów wszystkie nie¿ywe
-	for (int i = 0; i < organizmy.size(); i++) {
+	usunOrganizmy();
+	/*
+	for (int i = 0; i < organizmy.size(); i++) {			// tu sie chyba cos pierniczy
+
 		if (!organizmy[i]->getCzyZyje())
 			organizmy.erase(organizmy.begin()+i);
 	}
-	
+	*/
 	// na koniec dolicz kolejn¹ turê
 	tura++;
 	rysujSwiat();
@@ -103,9 +106,15 @@ void Swiat::stworzSwiat()
 	rysujSwiat();
 }
 
-void Swiat::usunOrganizm(Organizm * org)
+void Swiat::usunOrganizmy()
 {
-	organizmy.erase(remove(organizmy.begin(), organizmy.end(), org), organizmy.end());
+	for (Organizm* &org : organizmy) {
+		if (!(org->getCzyZyje())) {			// jezeli nie zyje
+			delete org;
+			org = nullptr;
+		}
+	}
+	organizmy.erase(remove(organizmy.begin(), organizmy.end(), nullptr), organizmy.end());
 }
 
 Swiat::~Swiat()

@@ -75,8 +75,8 @@ void Zwierze::akcja()
 		}
 		break;
 	}  // end of switch
-	for (Organizm* org : swiat.getOrganizmy()) {			// sprawdzenie czy dane miejsce jest wolne
-		if (org->getPolozenie().x == xNew && org->getPolozenie().y == yNew) {
+	for (Organizm* org : swiat.getOrganizmy()) {			// sprawdzenie czy dane miejsce jest wolne i czy to jest zywy organizm
+		if (org->getPolozenie().x == xNew && org->getPolozenie().y == yNew && org->getCzyZyje()) {
 			juzZajete = true;
 			kolizja(org);									// jezeli zajete, wywo³aj kolizjê
 			break;

@@ -16,7 +16,7 @@ public:
 	size_t getCols() const { return cols; }
 	const vector<Organizm*>& getOrganizmy() const { return organizmy; }
 	void dodajKomunikat(string info) { komunikaty.push_back(info); }
-	void usunOrganizm(Organizm* org);
+	void usunOrganizmy();
 	~Swiat();
 
 private:
