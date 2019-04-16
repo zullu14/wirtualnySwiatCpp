@@ -10,6 +10,7 @@
 #include <ctime>
 #include <vector>
 #include <algorithm>
+#include <iterator>
 
 
 Swiat::Swiat(size_t rows, size_t cols)
@@ -28,13 +29,10 @@ void Swiat::wykonajTure()
 	
 	// nastêpnie usuñ z listy organizmów wszystkie nie¿ywe
 	usunOrganizmy();
-	/*
-	for (int i = 0; i < organizmy.size(); i++) {			// tu sie chyba cos pierniczy
 
-		if (!organizmy[i]->getCzyZyje())
-			organizmy.erase(organizmy.begin()+i);
-	}
-	*/
+	// nastêpnie dodaj do listy organizmów wszystkie nowo narodzone
+	dodajNoweOrganizmy();
+
 	// na koniec dolicz kolejn¹ turê
 	tura++;
 	rysujSwiat();
@@ -88,21 +86,13 @@ void Swiat::stworzSwiat()
 				break;
 			}
 		}
-		if (!juzZajete) {							// jezeli miejsce wolne, stworz nowego Wilka w tym miejscu
-			r = rand() % 2;
-			switch (r)
-			{
-			case 0: organizmy.push_back(new Wilk(*this, { x,y }));
-				break;
-			case 1: organizmy.push_back(new Owca(*this, { x,y }));
-				break;
-			default:
-				break;
-			}
-			
+		if (!juzZajete) {							// jezeli miejsce wolne, stworz nowy organizm w tym miejscu
+			r = rand() % ILE_RODZAJOW;
+			dodajOrganizm((rodzaj)r, { x,y });
 			i++;
 		}
 	}
+	dodajNoweOrganizmy();
 	rysujSwiat();
 }
 
@@ -117,8 +107,33 @@ void Swiat::usunOrganizmy()
 	organizmy.erase(remove(organizmy.begin(), organizmy.end(), nullptr), organizmy.end());
 }
 
+void Swiat::dodajNoweOrganizmy()
+{
+	move(noweOrganizmy.begin(), noweOrganizmy.end(), back_inserter(organizmy));
+	noweOrganizmy.clear();
+}
+
+void Swiat::dodajOrganizm(rodzaj typ, wspolrzedne miejsce)
+{
+	switch (typ)
+	{
+	case wilk:
+		noweOrganizmy.push_back(new Wilk(*this, miejsce));
+		break;
+	case owca:
+		noweOrganizmy.push_back(new Owca(*this, miejsce));
+	//case zolw:
+
+	}
+
+}
+
 Swiat::~Swiat()
 {
+	for (Organizm* &org : organizmy) {
+		delete org;
+		org = nullptr;
+	}
 	organizmy.clear();
 }
 

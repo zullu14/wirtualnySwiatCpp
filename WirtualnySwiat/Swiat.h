@@ -16,14 +16,19 @@ public:
 	size_t getCols() const { return cols; }
 	const vector<Organizm*>& getOrganizmy() const { return organizmy; }
 	void dodajKomunikat(string info) { komunikaty.push_back(info); }
-	void usunOrganizmy();
+	void dodajOrganizm(rodzaj typ, wspolrzedne miejsce);
 	~Swiat();
 
 private:
 	vector<Organizm*> organizmy;
+	vector<Organizm*> noweOrganizmy;
 	int tura;
 	size_t rows, cols;
-	friend bool porownajOrganizmy(Organizm* org1, Organizm* org2);
 	vector<string> komunikaty;
+
+	friend bool porownajOrganizmy(Organizm* org1, Organizm* org2);
+	
+	void usunOrganizmy();
+	void dodajNoweOrganizmy();
 };
 
