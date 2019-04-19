@@ -15,6 +15,7 @@ public:
 	size_t getRows() const { return rows; }
 	size_t getCols() const { return cols; }
 	const vector<Organizm*>& getOrganizmy() const { return organizmy; }
+	const vector<Organizm*>& getNoweOrganizmy() const { return noweOrganizmy; }
 	void dodajKomunikat(string info) { komunikaty.push_back(info); }
 	void dodajOrganizm(rodzaj typ, wspolrzedne miejsce);
 	~Swiat();

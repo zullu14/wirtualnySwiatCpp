@@ -8,13 +8,19 @@ using namespace std;
 
 
 int main() {
-	Swiat ziemia(10,30);
+	size_t w, k;
+	cout << "Witaj w Wirtualnym Swiecie. " << endl
+		<< "Podaj wymiary swiata - liczba wierszy: ";
+	cin >> w;
+	cout << "Podaj wymiary swiata - liczba kolumn: ";
+	cin >> k;
+	Swiat ziemia(w,k);
 
 	ziemia.stworzSwiat();
 	cout << "Zwierzat w swiecie jest " << ziemia.getOrganizmy().size() << endl;
 	system("pause");
 
-	for (int i = 0; i < 30; i++) {
+	for (int i = 0; i < 10; i++) {
 	ziemia.wykonajTure();
 	system("pause");
 	}

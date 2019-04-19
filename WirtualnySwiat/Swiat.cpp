@@ -21,6 +21,9 @@ Swiat::Swiat(size_t rows, size_t cols)
 void Swiat::wykonajTure()
 {
 	sort(organizmy.begin(), organizmy.end(), porownajOrganizmy);
+	// wyzeruj flagê czyRozmnozylSie
+	for (Organizm* org : organizmy)
+		org->setCzyRozmnozylSie(false);
 	// po kolei wykonaj akcje
 	for (Organizm* org : organizmy) {
 		if(org->getCzyZyje())
@@ -49,7 +52,7 @@ void Swiat::rysujSwiat()
 		cout << "#";								// na poczatku kazdego wiersza
 		for (size_t j = 0; j < cols; j++) {			// dla kazdej kolumny w kazdym wierszu, tj. dla kazdej komórki
 			czyNarysowano = false;
-			for (Organizm* org : organizmy) {
+			for (Organizm* &org : organizmy) {
 				if (org->getPolozenie().x == i && org->getPolozenie().y == j) {
 					org->rysowanie();
 					czyNarysowano = true;
@@ -80,7 +83,7 @@ void Swiat::stworzSwiat()
 		x = rand() % rows;
 		y = rand() % cols;
 		juzZajete = false;
-		for (Organizm* org : organizmy) {			// sprawdzenie czy dane miejsce jest wolne
+		for (Organizm* &org : noweOrganizmy) {			// sprawdzenie czy dane miejsce jest wolne
 			if (org->getPolozenie().x == x && org->getPolozenie().y == y) {
 				juzZajete = true;
 				break;
@@ -109,6 +112,24 @@ void Swiat::usunOrganizmy()
 
 void Swiat::dodajNoweOrganizmy()
 {
+	// ROZMNA¯ANIE ZWIERZ¥T: Umieszczanie nowego organizmu na planszy
+
+	bool juzZajete;
+	for (Organizm* &nowyOrg : noweOrganizmy) {
+		juzZajete = false;
+		for (Organizm* &org : organizmy) {							// sprawdzenie, czy dane miejsce jest wolne
+			if (org->getPolozenie().x == nowyOrg->getPolozenie().x && org->getPolozenie().y == nowyOrg->getPolozenie().y)
+				juzZajete = true;
+		}
+		if (!juzZajete)
+			dodajKomunikat("Nowy " + nowyOrg->getTypToString() + " rodzi sie na pozycji " + to_string(nowyOrg->getPolozenie().x) + "," + to_string(nowyOrg->getPolozenie().y) + ". ");
+		// jezeli miejsce zajête, to nie powstanie tu nowy organizm
+		else {
+			delete nowyOrg;
+			nowyOrg = nullptr;
+		}
+	}
+	noweOrganizmy.erase(remove(noweOrganizmy.begin(), noweOrganizmy.end(), nullptr), noweOrganizmy.end());
 	move(noweOrganizmy.begin(), noweOrganizmy.end(), back_inserter(organizmy));
 	noweOrganizmy.clear();
 }

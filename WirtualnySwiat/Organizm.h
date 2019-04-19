@@ -18,10 +18,13 @@ public:
 	int getInicjatywa() const { return inicjatywa; }
 	int getWiek() const { return wiek;  }
 	wspolrzedne getPolozenie() const { return polozenie; }
+	void setPolozenie(wspolrzedne nowePolozenie) { polozenie = nowePolozenie; }
 	rodzaj getTyp() const { return typ; }
 	string getTypToString();
 	bool getCzyZyje() const { return czyZyje; }
 	void setCzyZyje(bool stan) { czyZyje = stan; }
+	bool getCzyRozmnozylSie() const { return czyRozmnozylSie; }
+	void setCzyRozmnozylSie(bool stan) { czyRozmnozylSie = stan; }
 
 	virtual bool czyOdbilAtak(const Organizm* atakujacy);
 	wspolrzedne losujPolozenie();
@@ -31,6 +34,7 @@ protected:
 	int inicjatywa;
 	int wiek;
 	bool czyZyje;
+	bool czyRozmnozylSie;
 	wspolrzedne polozenie;
 	Swiat& swiat;
 	rodzaj typ;

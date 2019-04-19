@@ -15,17 +15,20 @@ Zwierze::Zwierze(Swiat& srodowisko, wspolrzedne miejsce) : Organizm(srodowisko, 
 
 void Zwierze::akcja()
 {
-	bool juzZajete = false;
-	wspolrzedne nowePolozenie = losujPolozenie();
-	for (Organizm* org : swiat.getOrganizmy()) {			// sprawdzenie czy dane miejsce jest wolne i czy to jest zywy organizm
-		if (org->getPolozenie().x == nowePolozenie.x && org->getPolozenie().y == nowePolozenie.y && org->getCzyZyje()) {
-			juzZajete = true;
-			kolizja(org);									// jezeli zajete, wywo³aj kolizjê
-			break;
+	if (!czyRozmnozylSie) {					// jezeli uczestniczyl w rozmnazaniu w tej turze, to nie moze sie ruszac
+		bool juzZajete = false;
+		wspolrzedne nowePolozenie = losujPolozenie();
+		if (!(nowePolozenie.x == polozenie.x && nowePolozenie.y == polozenie.y)) {		// aby nie wywo³ywaæ kolizji sam ze sob¹
+			for (Organizm* org : swiat.getOrganizmy()) {								// sprawdzenie czy dane miejsce jest wolne i czy to jest zywy organizm
+				if (org->getPolozenie().x == nowePolozenie.x && org->getPolozenie().y == nowePolozenie.y && org->getCzyZyje()) {
+					juzZajete = true;
+					kolizja(org);									// jezeli zajete, wywo³aj kolizjê
+					break;
+				}
+			}
+			if (!juzZajete)					// jezeli nie zajete, to przenies sie na to pole
+				polozenie = nowePolozenie;
 		}
-	}
-	if (!juzZajete) {					// jezeli nie zajete, to przenies sie na to pole
-		polozenie = nowePolozenie;
 	}
 }
 
@@ -33,16 +36,19 @@ void Zwierze::kolizja(Organizm* drugi)
 {
 	// ROZMNA¯ANIE ZWIERZ¥T
 	if (typ == drugi->getTyp()) {					// jezeli zwierzêta s¹ tego samego typu - rozmnazajcie sie
-		
+		czyRozmnozylSie = true;
+		drugi->setCzyRozmnozylSie(true);
 		bool juzZajete = false;
 		wspolrzedne nowePolozenie = losujPolozenie();
-		for (Organizm* org : swiat.getOrganizmy()) {			// sprawdzenie czy dane miejsce jest wolne i czy to jest zywy organizm
-			if (org->getPolozenie().x == nowePolozenie.x && org->getPolozenie().y == nowePolozenie.y && org->getCzyZyje())
+
+		for (Organizm* org : swiat.getNoweOrganizmy()) {	// sprawdzenie czy dane miejsce jest wolne na liscie nowych organizmow
+			if (org->getPolozenie().x == nowePolozenie.x && org->getPolozenie().y == nowePolozenie.y) {
 				juzZajete = true;
+				break;
+			}
 		}
-		if (!juzZajete) {					// jezeli nie zajete, to stworz tu nowy organizm
+		if (!juzZajete) {							// jezeli miejsce wolne, stworz nowy organizm w tym miejscu
 			swiat.dodajOrganizm(typ, nowePolozenie);
-			swiat.dodajKomunikat("Nowy " + this->getTypToString() + " rodzi sie na pozycji " + to_string(nowePolozenie.x) + "," + to_string(nowePolozenie.y) + ". ");
 		}
 	}
 	// WALKA POMIÊDZY RÓ¯NYMI ZWIERZÊTAMI

@@ -8,6 +8,7 @@ Organizm::Organizm(Swiat& srodowisko, wspolrzedne miejsce)
 {
 	polozenie = miejsce;
 	czyZyje = true;
+	czyRozmnozylSie = false;
 	wiek = swiat.getTura();
 }
 
