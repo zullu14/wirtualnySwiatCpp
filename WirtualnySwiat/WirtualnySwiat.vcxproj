@@ -111,23 +111,29 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Antylopa.h" />
+    <ClInclude Include="Guarana.h" />
     <ClInclude Include="Lis.h" />
+    <ClInclude Include="Mlecz.h" />
     <ClInclude Include="Organizm.h" />
     <ClInclude Include="Owca.h" />
     <ClInclude Include="Roslina.h" />
     <ClInclude Include="Swiat.h" />
+    <ClInclude Include="Trawa.h" />
     <ClInclude Include="Wilk.h" />
     <ClInclude Include="Zolw.h" />
     <ClInclude Include="Zwierze.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Antylopa.cpp" />
+    <ClCompile Include="Guarana.cpp" />
     <ClCompile Include="Lis.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Mlecz.cpp" />
     <ClCompile Include="Organizm.cpp" />
     <ClCompile Include="Owca.cpp" />
     <ClCompile Include="Roslina.cpp" />
     <ClCompile Include="Swiat.cpp" />
+    <ClCompile Include="Trawa.cpp" />
     <ClCompile Include="Wilk.cpp" />
     <ClCompile Include="Zolw.cpp" />
     <ClCompile Include="Zwierze.cpp" />

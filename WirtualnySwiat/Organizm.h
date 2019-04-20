@@ -3,7 +3,7 @@
 using namespace std;
 class Swiat;
 struct wspolrzedne { int x, y; };
-enum rodzaj { wilk, owca, zolw, lis, antylopa, ILE_RODZAJOW };
+enum rodzaj { wilk, owca, zolw, lis, antylopa, trawa, mlecz, guarana, ILE_RODZAJOW };
 
 class Organizm
 {
@@ -15,6 +15,7 @@ public:
 	virtual ~Organizm();
 
 	int getSila() const { return sila; }
+	void zwiekszSileO(int str) { sila += str; }
 	int getInicjatywa() const { return inicjatywa; }
 	int getWiek() const { return wiek;  }
 	wspolrzedne getPolozenie() const { return polozenie; }

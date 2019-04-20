@@ -17,14 +17,14 @@ int main() {
 	Swiat ziemia(w,k);
 
 	ziemia.stworzSwiat();
-	cout << "Zwierzat w swiecie jest " << ziemia.getOrganizmy().size() << endl;
+	cout << "Organizmow w swiecie jest " << ziemia.getOrganizmy().size() << endl;
 	system("pause");
 
 	for (int i = 0; i < 15; i++) {
 	ziemia.wykonajTure();
 	system("pause");
 	}
-	cout << "Zwierzat w swiecie jest " << ziemia.getOrganizmy().size() << endl;
+	cout << "Organizmow w swiecie jest " << ziemia.getOrganizmy().size() << endl;
 
 	system("pause");
 

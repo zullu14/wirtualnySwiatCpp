@@ -1,5 +1,6 @@
 #include "Antylopa.h"
 #include "Swiat.h"
+#include "Zwierze.h"
 #include <iostream>
 using namespace std;
 
@@ -19,13 +20,13 @@ void Antylopa::akcja()
 
 void Antylopa::kolizja(Organizm* drugi)
 {
-	if (!(typ == drugi->getTyp())) {					// je¿eli s¹ ró¿nego gatunku, to spróbuj uciec
+	if (typ != drugi->getTyp() && dynamic_cast<Zwierze*>(drugi) != nullptr) {	// je¿eli s¹ ró¿nego gatunku i drugi to zwierzê, to spróbuj uciec
 		polozenie.x = drugi->getPolozenie().x;			// zajmij to samo miejsce co drugi
 		polozenie.y = drugi->getPolozenie().y;			// z tego samego miejsca albo ucieknie, albo jedno zginie w walce
 		if (czyUciekl(drugi))
 			return;										// jezeli uda³o siê uciec, to nie wykona siê kolizja Zwierz¹t
 	}
-	// jezeli s¹ tego samego gatunku lub nie uda³o siê uciec, wykonaj kolizjê Zwierz¹t
+	// jezeli s¹ tego samego gatunku lub drugi jest roœlin¹, lub nie uda³o siê uciec, wykonaj kolizjê Zwierz¹t
 	Zwierze::kolizja(drugi);
 }
 

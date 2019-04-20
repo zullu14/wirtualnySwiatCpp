@@ -30,6 +30,12 @@ string Organizm::getTypToString() const
 		return "lis";
 	case antylopa:
 		return "antylopa";
+	case trawa:
+		return "trawa";
+	case mlecz:
+		return "mlecz";
+	case guarana:
+		return "guarana";
 	default:
 		return "obcy";
 	}

@@ -1,12 +1,6 @@
 #include "Zwierze.h"
 #include "Swiat.h"
-#include <cstdlib>
-#include <iostream>
-#include <ctime>
-#include <vector>
-#include <string>
-#include <typeinfo>
-using namespace std;
+#include "Roslina.h"
 
 
 Zwierze::Zwierze(Swiat& srodowisko, wspolrzedne miejsce) : Organizm(srodowisko, miejsce)
@@ -50,6 +44,13 @@ void Zwierze::kolizja(Organizm* drugi)
 		if (!juzZajete) {							// jezeli miejsce wolne, stworz nowy organizm w tym miejscu
 			swiat.dodajOrganizm(typ, nowePolozenie);
 		}
+	}
+	// ZJADANIE ROŒLINY
+	else if (dynamic_cast<Roslina*>(drugi) != nullptr) {	// jezeli drugi organizm jest roœlin¹
+		polozenie.x = drugi->getPolozenie().x;				// zajmij miejsce roœliny
+		polozenie.y = drugi->getPolozenie().y;
+		drugi->kolizja(this);								// metoda kolizja() danej roœliny okreœla efekty zjedzenia jej przez zwierzêta
+		drugi->setCzyZyje(false);							// ustawienie stanu roœliny na nie¿ywy
 	}
 	// WALKA POMIÊDZY RÓ¯NYMI ZWIERZÊTAMI
 	else if (!drugi->czyOdbilAtak(this) ) {					// jak nie odbi³ ataku to walka

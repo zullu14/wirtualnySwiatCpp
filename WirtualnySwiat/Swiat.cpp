@@ -2,6 +2,9 @@
 #include "Organizm.h"
 #include "Zwierze.h"
 #include "Roslina.h"
+#include "Trawa.h"
+#include "Mlecz.h"
+#include "Guarana.h"
 #include "Wilk.h"
 #include "Owca.h"
 #include "Zolw.h"
@@ -127,9 +130,9 @@ void Swiat::dodajNoweOrganizmy()
 		}
 		if (!juzZajete) {
 			if (dynamic_cast<Zwierze*>(nowyOrg) != nullptr)
-				dodajKomunikat("Nowy " + nowyOrg->getTypToString() + " rodzi sie na pozycji " + to_string(nowyOrg->getPolozenie().x) + "," + to_string(nowyOrg->getPolozenie().y) + ". ");
-			else if (dynamic_cast<Roslina*>(nowyOrg) != nullptr)
-				dodajKomunikat("Nowy " + nowyOrg->getTypToString() + " wyrasta na pozycji " + to_string(nowyOrg->getPolozenie().x) + "," + to_string(nowyOrg->getPolozenie().y) + ". ");
+				dodajKomunikat("Nowe zwierze: " + nowyOrg->getTypToString() + " rodzi sie na pozycji " + to_string(nowyOrg->getPolozenie().x) + "," + to_string(nowyOrg->getPolozenie().y) + ". ");
+			//else if (dynamic_cast<Roslina*>(nowyOrg) != nullptr)
+				//dodajKomunikat("Nowa roslina: " + nowyOrg->getTypToString() + " wyrasta na pozycji " + to_string(nowyOrg->getPolozenie().x) + "," + to_string(nowyOrg->getPolozenie().y) + ". ");
 		}
 			// jezeli miejsce zajête, to nie powstanie tu nowy organizm
 		else {
@@ -160,6 +163,15 @@ void Swiat::dodajOrganizm(rodzaj typ, wspolrzedne miejsce)
 		break;
 	case antylopa:
 		noweOrganizmy.push_back(new Antylopa(*this, miejsce));
+		break;
+	case trawa:
+		noweOrganizmy.push_back(new Trawa(*this, miejsce));
+		break;
+	case mlecz:
+		noweOrganizmy.push_back(new Mlecz(*this, miejsce));
+		break;
+	case guarana:
+		noweOrganizmy.push_back(new Guarana(*this, miejsce));
 		break;
 	}
 

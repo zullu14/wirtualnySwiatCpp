@@ -1,5 +1,4 @@
 #include "Owca.h"
-#include "Swiat.h"
 #include <iostream>
 using namespace std;
 
