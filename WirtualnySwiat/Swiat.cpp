@@ -1,8 +1,12 @@
 #include "Swiat.h"
 #include "Organizm.h"
 #include "Zwierze.h"
+#include "Roslina.h"
 #include "Wilk.h"
 #include "Owca.h"
+#include "Zolw.h"
+#include "Lis.h"
+#include "Antylopa.h"
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
@@ -75,8 +79,8 @@ void Swiat::rysujSwiat()
 
 void Swiat::stworzSwiat()
 {
-	srand(time(nullptr));
-	int populacja = (rows*cols) / 10;
+	srand(time(nullptr));							// rusza RNG
+	int populacja = (rows*cols) / 20;				// 5% zaludnienia
 	int x, y, r;
 	bool juzZajete = false;
 	for (int i = 0; i < populacja; ) {
@@ -112,7 +116,7 @@ void Swiat::usunOrganizmy()
 
 void Swiat::dodajNoweOrganizmy()
 {
-	// ROZMNA¯ANIE ZWIERZ¥T: Umieszczanie nowego organizmu na planszy
+	// ROZMNA¯ANIE ZWIERZ¥T/ ROZSIEWANIE ROŒLIN: Umieszczanie nowego organizmu na planszy
 
 	bool juzZajete;
 	for (Organizm* &nowyOrg : noweOrganizmy) {
@@ -121,9 +125,13 @@ void Swiat::dodajNoweOrganizmy()
 			if (org->getPolozenie().x == nowyOrg->getPolozenie().x && org->getPolozenie().y == nowyOrg->getPolozenie().y)
 				juzZajete = true;
 		}
-		if (!juzZajete)
-			dodajKomunikat("Nowy " + nowyOrg->getTypToString() + " rodzi sie na pozycji " + to_string(nowyOrg->getPolozenie().x) + "," + to_string(nowyOrg->getPolozenie().y) + ". ");
-		// jezeli miejsce zajête, to nie powstanie tu nowy organizm
+		if (!juzZajete) {
+			if (dynamic_cast<Zwierze*>(nowyOrg) != nullptr)
+				dodajKomunikat("Nowy " + nowyOrg->getTypToString() + " rodzi sie na pozycji " + to_string(nowyOrg->getPolozenie().x) + "," + to_string(nowyOrg->getPolozenie().y) + ". ");
+			else if (dynamic_cast<Roslina*>(nowyOrg) != nullptr)
+				dodajKomunikat("Nowy " + nowyOrg->getTypToString() + " wyrasta na pozycji " + to_string(nowyOrg->getPolozenie().x) + "," + to_string(nowyOrg->getPolozenie().y) + ". ");
+		}
+			// jezeli miejsce zajête, to nie powstanie tu nowy organizm
 		else {
 			delete nowyOrg;
 			nowyOrg = nullptr;
@@ -143,8 +151,16 @@ void Swiat::dodajOrganizm(rodzaj typ, wspolrzedne miejsce)
 		break;
 	case owca:
 		noweOrganizmy.push_back(new Owca(*this, miejsce));
-	//case zolw:
-
+		break;
+	case zolw:
+		noweOrganizmy.push_back(new Zolw(*this, miejsce));
+		break;
+	case lis:
+		noweOrganizmy.push_back(new Lis(*this, miejsce));
+		break;
+	case antylopa:
+		noweOrganizmy.push_back(new Antylopa(*this, miejsce));
+		break;
 	}
 
 }

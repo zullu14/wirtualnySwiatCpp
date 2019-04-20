@@ -52,15 +52,17 @@ void Zwierze::kolizja(Organizm* drugi)
 		}
 	}
 	// WALKA POMIÊDZY RÓ¯NYMI ZWIERZÊTAMI
-	else if (!drugi->czyOdbilAtak(this) ) {					// jak rozne to walka
-		if (this->sila >= drugi->getSila()) {				// pierwszy zabija drugi organizm
-			polozenie.x = drugi->getPolozenie().x;			// pierwszy zajmuje miejsce drugiego
-			polozenie.y = drugi->getPolozenie().y;
+	else if (!drugi->czyOdbilAtak(this) ) {					// jak nie odbi³ ataku to walka
+		polozenie.x = drugi->getPolozenie().x;				// pierwszy zajmuje miejsce drugiego
+		polozenie.y = drugi->getPolozenie().y;
+		if (drugi->czyUciekl(this))							// jezeli tamten uciek³, to tylko zajmij jego miejsce i wyjdŸ
+			return;
+		else if (this->sila >= drugi->getSila()) {			// pierwszy zabija drugi organizm		
 			swiat.dodajKomunikat(this->getTypToString() + " zabija " + drugi->getTypToString() + " na pozycji " + to_string(polozenie.x) + "," + to_string(polozenie.y) + ". ");
 			drugi->setCzyZyje(false);						// ustawienie stanu drugiego organizmu na nie¿ywy
 		}
 		else {												// na odwort: drugi zabija pierwszego
-			swiat.dodajKomunikat(drugi->getTypToString() + " zabija " + this->getTypToString() + " na pozycji " + to_string(drugi->getPolozenie().x) + "," + to_string(drugi->getPolozenie().y) + ". ");
+			swiat.dodajKomunikat(drugi->getTypToString() + " zabija " + this->getTypToString() + " na pozycji " + to_string(polozenie.x) + "," + to_string(polozenie.y) + ". ");
 			this->setCzyZyje(false);						// ustawienie stanu tego organizmu na nie¿ywy
 		}
 	}

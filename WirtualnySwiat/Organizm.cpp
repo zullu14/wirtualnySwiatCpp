@@ -16,7 +16,7 @@ Organizm::~Organizm()
 {
 }
 
-string Organizm::getTypToString()
+string Organizm::getTypToString() const
 {
 	switch (typ)
 	{
@@ -24,12 +24,23 @@ string Organizm::getTypToString()
 		return "wilk";
 	case owca:
 		return "owca";
+	case zolw:
+		return "zolw";
+	case lis:
+		return "lis";
+	case antylopa:
+		return "antylopa";
 	default:
 		return "obcy";
 	}
 }
 
 bool Organizm::czyOdbilAtak(const Organizm* atakujacy)
+{
+	return false; // domyœlnie
+}
+
+bool Organizm::czyUciekl(const Organizm* atakujacy)
 {
 	return false; // domyœlnie
 }

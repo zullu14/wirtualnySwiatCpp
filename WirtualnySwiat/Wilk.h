@@ -6,7 +6,7 @@ class Wilk : public Zwierze
 public:
 
 	Wilk(Swiat& srodowisko, wspolrzedne miejsce);
-	void rysowanie() const;
+	void rysowanie() const override;
 	~Wilk();
 };
 

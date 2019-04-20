@@ -20,7 +20,7 @@ int main() {
 	cout << "Zwierzat w swiecie jest " << ziemia.getOrganizmy().size() << endl;
 	system("pause");
 
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 15; i++) {
 	ziemia.wykonajTure();
 	system("pause");
 	}

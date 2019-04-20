@@ -4,7 +4,7 @@ class Owca : public Zwierze
 {
 public:
 	Owca(Swiat& srodowisko, wspolrzedne miejsce);
-	void rysowanie() const;
+	void rysowanie() const override;
 	~Owca();
 };
 
