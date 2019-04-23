@@ -1,7 +1,3 @@
-#include "Organizm.h"
-#include "Zwierze.h"
-#include "Wilk.h"
-#include "Owca.h"
 #include "Swiat.h"
 #include <iostream>
 using namespace std;
@@ -20,7 +16,7 @@ int main() {
 	cout << "Organizmow w swiecie jest " << ziemia.getOrganizmy().size() << endl;
 	system("pause");
 
-	for (int i = 0; i < 15; i++) {
+	for (int i = 0; i < 25; i++) {
 	ziemia.wykonajTure();
 	system("pause");
 	}

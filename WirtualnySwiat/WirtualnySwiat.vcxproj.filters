@@ -51,6 +51,12 @@
     <ClInclude Include="Guarana.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WilczeJagody.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sosnowski.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Swiat.cpp">
@@ -90,6 +96,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Guarana.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WilczeJagody.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sosnowski.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -3,7 +3,7 @@
 using namespace std;
 class Swiat;
 struct wspolrzedne { int x, y; };
-enum rodzaj { wilk, owca, zolw, lis, antylopa, trawa, mlecz, guarana, ILE_RODZAJOW };
+enum rodzaj { wilk, owca, zolw, lis, antylopa, trawa, mlecz, guarana, jagody, barszcz, ILE_RODZAJOW };
 
 class Organizm
 {

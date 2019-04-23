@@ -36,6 +36,10 @@ string Organizm::getTypToString() const
 		return "mlecz";
 	case guarana:
 		return "guarana";
+	case jagody:
+		return "wilcze jagody";
+	case barszcz:
+		return "barszcz Sosnowskiego";
 	default:
 		return "obcy";
 	}

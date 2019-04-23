@@ -5,6 +5,8 @@
 #include "Trawa.h"
 #include "Mlecz.h"
 #include "Guarana.h"
+#include "WilczeJagody.h"
+#include "Sosnowski.h"
 #include "Wilk.h"
 #include "Owca.h"
 #include "Zolw.h"
@@ -172,6 +174,12 @@ void Swiat::dodajOrganizm(rodzaj typ, wspolrzedne miejsce)
 		break;
 	case guarana:
 		noweOrganizmy.push_back(new Guarana(*this, miejsce));
+		break;
+	case jagody:
+		noweOrganizmy.push_back(new WilczeJagody(*this, miejsce));
+		break;
+	case barszcz:
+		noweOrganizmy.push_back(new Sosnowski(*this, miejsce));
 		break;
 	}
 
