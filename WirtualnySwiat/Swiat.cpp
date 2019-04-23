@@ -12,6 +12,7 @@
 #include "Zolw.h"
 #include "Lis.h"
 #include "Antylopa.h"
+#include "Czlowiek.h"
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
@@ -23,7 +24,7 @@
 
 
 Swiat::Swiat(size_t rows, size_t cols)
-	: rows{rows}, cols{cols}, tura{1}
+	: rows{rows}, cols{cols}, tura{0}
 {
 }
 
@@ -45,9 +46,11 @@ void Swiat::wykonajTure()
 	// nastêpnie dodaj do listy organizmów wszystkie nowo narodzone
 	dodajNoweOrganizmy();
 
+	// narysuj obecny stan œwiata
+	rysujSwiat();
+
 	// na koniec dolicz kolejn¹ turê
 	tura++;
-	rysujSwiat();
 }
 
 void Swiat::rysujSwiat()
@@ -75,9 +78,11 @@ void Swiat::rysujSwiat()
 	for (size_t i = 0; i < cols + 2; i++)
 		cout << "#";
 	cout << endl;
-	cout << setw(cols + 2) << "***** Komunikaty *****" << endl;
-	for (string info : komunikaty) {
-		cout << info << endl;
+	if (tura > 0) {
+		cout  << "***** Komunikaty *****" << endl;
+		for (string info : komunikaty) {
+			cout << info << endl;
+		}
 	}
 	komunikaty.clear();								// po wypisaniu komunikatow na te ture, usun je
 }
@@ -87,7 +92,14 @@ void Swiat::stworzSwiat()
 	srand(time(nullptr));							// rusza RNG
 	int populacja = (rows*cols) / 20;				// 5% zaludnienia
 	int x, y, r;
+	x = rand() % rows;
+	y = rand() % cols;
 	bool juzZajete = false;
+
+	// najpierw stwórz cz³owieka
+	dodajOrganizm(czlowiek, { x,y });
+
+	// nastêpnie stwórz resztê organizmów
 	for (int i = 0; i < populacja; ) {
 		x = rand() % rows;
 		y = rand() % cols;
@@ -106,6 +118,7 @@ void Swiat::stworzSwiat()
 	}
 	dodajNoweOrganizmy();
 	rysujSwiat();
+	tura++;
 }
 
 void Swiat::usunOrganizmy()
@@ -180,6 +193,9 @@ void Swiat::dodajOrganizm(rodzaj typ, wspolrzedne miejsce)
 		break;
 	case barszcz:
 		noweOrganizmy.push_back(new Sosnowski(*this, miejsce));
+		break;
+	case czlowiek:
+		noweOrganizmy.push_back(new Czlowiek(*this, miejsce));
 		break;
 	}
 

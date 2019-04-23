@@ -1,5 +1,6 @@
 #pragma once
 #include "Roslina.h"
+
 class Sosnowski : public Roslina
 {
 public:

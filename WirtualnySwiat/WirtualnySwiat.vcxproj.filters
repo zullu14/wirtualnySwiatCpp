@@ -57,6 +57,9 @@
     <ClInclude Include="Sosnowski.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Czlowiek.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Swiat.cpp">
@@ -102,6 +105,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Sosnowski.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Czlowiek.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
