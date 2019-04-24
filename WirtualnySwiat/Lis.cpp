@@ -11,6 +11,12 @@ Lis::Lis(Swiat& srodowisko, wspolrzedne miejsce) : Zwierze(srodowisko, miejsce)
 	this->typ = lis;
 }
 
+Lis::Lis(Swiat & srodowisko, wspolrzedne miejsce, int sila, int wiek) : Zwierze(srodowisko, miejsce, sila, wiek)
+{
+	this->inicjatywa = 7;
+	this->typ = lis;
+}
+
 void Lis::akcja()
 {
 	if (!czyRozmnozylSie) {					// jezeli uczestniczyl w rozmnazaniu w tej turze, to nie moze sie ruszac

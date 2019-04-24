@@ -9,6 +9,7 @@ class Organizm
 {
 public:
 	Organizm(Swiat& srodowisko, wspolrzedne miejsce);
+	Organizm(Swiat& srodowisko, wspolrzedne miejsce, int sila, int wiek);
 	virtual void akcja() = 0;
 	virtual void kolizja(Organizm* drugi) = 0;
 	virtual void rysowanie() const = 0;

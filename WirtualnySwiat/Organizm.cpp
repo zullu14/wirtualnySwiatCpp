@@ -12,6 +12,14 @@ Organizm::Organizm(Swiat& srodowisko, wspolrzedne miejsce)
 	wiek = swiat.getTura();
 }
 
+Organizm::Organizm(Swiat& srodowisko, wspolrzedne miejsce, int sila, int wiek)
+	: swiat{srodowisko}, sila{sila}, wiek{wiek}
+{
+	polozenie = miejsce;
+	czyZyje = true;
+	czyRozmnozylSie = false;
+}
+
 Organizm::~Organizm()
 {
 }

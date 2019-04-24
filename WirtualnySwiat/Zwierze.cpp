@@ -7,6 +7,10 @@ Zwierze::Zwierze(Swiat& srodowisko, wspolrzedne miejsce) : Organizm(srodowisko, 
 {
 }
 
+Zwierze::Zwierze(Swiat & srodowisko, wspolrzedne miejsce, int sila, int wiek) : Organizm(srodowisko, miejsce, sila, wiek)
+{
+}
+
 void Zwierze::akcja()
 {
 	if (!czyRozmnozylSie) {					// jezeli uczestniczyl w rozmnazaniu w tej turze, to nie moze sie ruszac

@@ -10,6 +10,12 @@ Wilk::Wilk(Swiat& srodowisko, wspolrzedne miejsce) : Zwierze(srodowisko, miejsce
 	this->typ = wilk;
 }
 
+Wilk::Wilk(Swiat& srodowisko, wspolrzedne miejsce, int sila, int wiek) : Zwierze(srodowisko, miejsce, sila, wiek)
+{
+	this->inicjatywa = 5;
+	this->typ = wilk;
+}
+
 void Wilk::rysowanie() const
 {
 	cout << 'W';

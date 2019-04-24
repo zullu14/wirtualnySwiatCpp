@@ -30,8 +30,13 @@ private:
 	int kierunek;
 	friend bool porownajOrganizmy(Organizm* org1, Organizm* org2);
 	
+	void dodajOrganizm(rodzaj typ, wspolrzedne miejsce, int sila, int wiek, int licznik);
 	void usunOrganizmy();
 	void dodajNoweOrganizmy();
 	void obslugaKlawiatury();
+	int piszMenu();
+	void zapiszSwiat();
+	bool wczytajSwiat();
+	void wyczyscOrganizmy();
 };
 

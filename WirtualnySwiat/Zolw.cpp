@@ -11,6 +11,12 @@ Zolw::Zolw(Swiat& srodowisko, wspolrzedne miejsce) : Zwierze(srodowisko, miejsce
 	this->typ = zolw;
 }
 
+Zolw::Zolw(Swiat & srodowisko, wspolrzedne miejsce, int sila, int wiek) : Zwierze(srodowisko, miejsce, sila, wiek)
+{
+	this->inicjatywa = 1;
+	this->typ = zolw;
+}
+
 void Zolw::akcja()
 {
 	if (!(rand() % 4))			// gdy bêdzie 0 spoœród 0, 1, 2, 3 (25% szans)

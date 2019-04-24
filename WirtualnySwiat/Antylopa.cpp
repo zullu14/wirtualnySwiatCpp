@@ -12,6 +12,12 @@ Antylopa::Antylopa(Swiat& srodowisko, wspolrzedne miejsce) : Zwierze(srodowisko,
 	this->typ = antylopa;
 }
 
+Antylopa::Antylopa(Swiat & srodowisko, wspolrzedne miejsce, int sila, int wiek) : Zwierze(srodowisko, miejsce, sila, wiek)
+{
+	this->inicjatywa = 4;
+	this->typ = antylopa;
+}
+
 void Antylopa::akcja()
 {
 	Zwierze::akcja();

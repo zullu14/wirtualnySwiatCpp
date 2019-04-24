@@ -13,6 +13,13 @@ Czlowiek::Czlowiek(Swiat& srodowisko, wspolrzedne miejsce) : Zwierze(srodowisko,
 	this->licznikTarczy = 0;
 }
 
+Czlowiek::Czlowiek(Swiat & srodowisko, wspolrzedne miejsce, int sila, int wiek, int licznik) : Zwierze(srodowisko, miejsce, sila, wiek)
+{
+	this->inicjatywa = 4;
+	this->typ = czlowiek;
+	this->licznikTarczy = licznik;
+}
+
 void Czlowiek::akcja()
 {
 	if (licznikTarczy) licznikTarczy--;				// cooldown umiejêtnoœci

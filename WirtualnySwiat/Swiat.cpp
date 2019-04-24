@@ -24,6 +24,7 @@
 #include <algorithm>
 #include <iterator>
 #include <conio.h>
+#include <fstream>
 
 
 Swiat::Swiat(size_t rows, size_t cols)
@@ -62,6 +63,7 @@ void Swiat::wykonajTure()
 void Swiat::rysujSwiat()
 {
 	system("cls");
+	cout << "Projekt Wirtualny Swiat - Michal Baranowski 165463" << endl;
 	bool czyNarysowano = false;
 	for (size_t i = 0; i < cols + 2; i++)
 		cout << "#";
@@ -85,7 +87,7 @@ void Swiat::rysujSwiat()
 		cout << "#";
 	cout << endl;
 	if (tura > 0) {
-		cout  << "***** KOMUNIKATY *****" << endl;
+		cout  << endl << "***** KOMUNIKATY *****" << endl << endl;
 		for (string info : komunikaty) {
 			cout << info << endl;
 		}
@@ -169,31 +171,12 @@ void Swiat::dodajNoweOrganizmy()
 }
 
 void Swiat::obslugaKlawiatury()
-{
-	cout << "***** WYBOR AKCJI ***** " << endl;
-	bool czyCzlowiekZyje = false;
-	int licznik = -1;
+{	
+	int licznik = piszMenu();
+	// próbuj tak d³ugo, a¿ zostanie wybrana strza³ka lub inne specjalne opcje
 	kierunek = -1;
 	unsigned char klawisz;
 
-	// sprawdzenie czy Czlowiek zyje i spisanie licznika specjalnej umiejêtnoœci
-	for (Organizm* org : organizmy) {
-		if (dynamic_cast<Czlowiek*>(org) != nullptr) {
-			czyCzlowiekZyje = true;
-			licznik = dynamic_cast<Czlowiek*>(org)->getLicznik();
-			break;
-		}
-	}
-	if (czyCzlowiekZyje) {
-		cout << "* klawisze strzalek (prawo, lewo, gora, dol) - ruch Czlowieka" << endl;
-		if (licznik > 5) cout << "* Tarcza Alzura jest aktywna" << endl;
-		else if (licznik > 0 && licznik <= 5) cout << "Tarcza Alzura bedzie aktywna za " << licznik << " tur" << endl;
-		else if (licznik == 0) cout << "* SPACJA - aktywacja Tarczy Alzura" << endl;
-	}
-	else
-		cout << "* klawisze strzalek - kolejna tura" << endl;
-	
-	// próbuj tak d³ugo, a¿ zostanie wybrana strza³ka lub inne specjalne opcje
 	while (1) {
 		klawisz = _getch();
 		if (klawisz == STRZALKI) {
@@ -219,6 +202,151 @@ void Swiat::obslugaKlawiatury()
 			kierunek = spacja;
 			break;					// w takim wypadku te¿ nastepuje wyjœcie z pêtli czytania znaków
 		}
+		else if (klawisz == 's' || klawisz == 'S') {
+			zapiszSwiat();
+			cout << endl << "Stan gry zapisany. " << endl;
+		}
+		else if (klawisz == 'l' || klawisz == 'L') {
+			if (wczytajSwiat()) {			// jezeli uda³o siê wczytaæ nowy œwiat z pliku
+				rysujSwiat();
+				licznik = piszMenu();
+			}
+			else cout << endl << "Nie udalo sie wczytac stanu gry! " << endl;
+		}
+	}
+}
+
+int Swiat::piszMenu()
+{
+	cout << endl << "***** WYBOR AKCJI ***** " << endl << endl;
+	bool czyCzlowiekZyje = false;
+	int licznik = -1;
+
+	// sprawdzenie czy Czlowiek zyje i spisanie licznika specjalnej umiejêtnoœci
+	for (Organizm* org : organizmy) {
+		if (dynamic_cast<Czlowiek*>(org) != nullptr) {
+			czyCzlowiekZyje = true;
+			licznik = dynamic_cast<Czlowiek*>(org)->getLicznik();
+			break;
+		}
+	}
+	if (czyCzlowiekZyje) {
+		cout << "* klawisze strzalek (prawo, lewo, gora, dol) - ruch Czlowieka" << endl;
+		if (licznik > 5) cout << "* Tarcza Alzura jest aktywna" << endl;
+		else if (licznik > 0 && licznik <= 5) cout << "Tarcza Alzura bedzie aktywna za " << licznik << " tur" << endl;
+		else if (licznik == 0) cout << "* SPACJA - aktywacja Tarczy Alzura" << endl;
+	}
+	else
+		cout << "* klawisze strzalek - kolejna tura" << endl;
+	// w obu wypadkach jeszcze opcje:
+	cout << "* klawisz S - zapis stanu gry" << endl;
+	cout << "* klawisz L - wczytanie ostatniego zapisu stanu gry" << endl;
+	return licznik;
+}
+
+void Swiat::zapiszSwiat()
+{
+	ofstream plik("zapis.txt");
+	int n = organizmy.size();
+	
+	// zapis do pliku
+	plik << rows << endl;
+	plik << cols << endl;
+	plik << tura << endl;
+	plik << n << endl;
+	for (Organizm* org : organizmy) {
+		plik << org->getTyp() << endl;
+		plik << org->getSila() << endl;
+		plik << org->getWiek() << endl;
+		plik << org->getPolozenie().x << endl;
+		plik << org->getPolozenie().y << endl;
+		if (dynamic_cast<Czlowiek*>(org) != nullptr)
+			plik << dynamic_cast<Czlowiek*>(org)->getLicznik() << endl;
+	}
+	plik.close();
+}
+
+bool Swiat::wczytajSwiat()
+{
+	ifstream plik("zapis.txt");
+	if (!plik) return false;		// jesli nie uda³o siê otworzyæ pliku
+	int w = 0, k = 0, ileTur, n;
+	plik >> w;
+	plik >> k;
+	plik >> ileTur;
+	plik >> n;
+	if (w && k) {					// tylko jezeli swiat ma niezerowe wymiary
+		wyczyscOrganizmy();			// usuwa star¹ listê organizmów, bo zape³ni now¹ z pliku
+		rows = w;
+		cols = k;
+		tura = ileTur;
+		int gatunek = 0, sila = 0, wiek = 0, x = 0, y = 0, licznik = 0;
+		for (int i = 0; i < n; i++) {
+			plik >> gatunek;
+			plik >> sila;
+			plik >> wiek;
+			plik >> x;
+			plik >> y;
+			if (gatunek == czlowiek) plik >> licznik;
+			dodajOrganizm((rodzaj)gatunek, {x,y}, sila, wiek, licznik);
+		}
+		plik.close();
+		return true;
+	}
+	else {
+		plik.close();
+		return false;
+	}
+
+}
+
+void Swiat::wyczyscOrganizmy()
+{
+	for (Organizm* &org : organizmy) {
+		delete org;
+		org = nullptr;
+	}
+	organizmy.clear();
+}
+
+void Swiat::dodajOrganizm(rodzaj typ, wspolrzedne miejsce, int sila, int wiek, int licznik = 0)
+{
+	// organizmy wczytywane z pliku s¹ od razu dodawane do wektora organizmy (nie przechodz¹ przez noweOrganizmy)
+	switch (typ)
+	{
+	case wilk:
+		organizmy.push_back(new Wilk(*this, miejsce, sila, wiek));
+		break;
+	case owca:
+		organizmy.push_back(new Owca(*this, miejsce, sila, wiek));
+		break;
+	case zolw:
+		organizmy.push_back(new Zolw(*this, miejsce, sila, wiek));
+		break;
+	case lis:
+		organizmy.push_back(new Lis(*this, miejsce, sila, wiek));
+		break;
+	case antylopa:
+		organizmy.push_back(new Antylopa(*this, miejsce, sila, wiek));
+		break;
+	case trawa:
+		organizmy.push_back(new Trawa(*this, miejsce, sila, wiek));
+		break;
+	case mlecz:
+		organizmy.push_back(new Mlecz(*this, miejsce, sila, wiek));
+		break;
+	case guarana:
+		organizmy.push_back(new Guarana(*this, miejsce, sila, wiek));
+		break;
+	case jagody:
+		organizmy.push_back(new WilczeJagody(*this, miejsce, sila, wiek));
+		break;
+	case barszcz:
+		organizmy.push_back(new Sosnowski(*this, miejsce, sila, wiek));
+		break;
+	case czlowiek:
+		organizmy.push_back(new Czlowiek(*this, miejsce, sila, wiek, licznik));
+		break;
 	}
 }
 
@@ -265,11 +393,7 @@ void Swiat::dodajOrganizm(rodzaj typ, wspolrzedne miejsce)
 
 Swiat::~Swiat()
 {
-	for (Organizm* &org : organizmy) {
-		delete org;
-		org = nullptr;
-	}
-	organizmy.clear();
+	wyczyscOrganizmy();
 }
 
 bool porownajOrganizmy(Organizm * org1, Organizm * org2)

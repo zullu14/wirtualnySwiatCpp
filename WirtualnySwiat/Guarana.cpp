@@ -11,6 +11,12 @@ Guarana::Guarana(Swiat& srodowisko, wspolrzedne miejsce) : Roslina(srodowisko, m
 	this->typ = guarana;
 }
 
+Guarana::Guarana(Swiat & srodowisko, wspolrzedne miejsce, int sila, int wiek) : Roslina(srodowisko, miejsce, sila, wiek)
+{
+	this->inicjatywa = 0;
+	this->typ = guarana;
+}
+
 void Guarana::kolizja(Organizm* drugi)
 {
 	drugi->zwiekszSileO(3);

@@ -10,6 +10,12 @@ Mlecz::Mlecz(Swiat& srodowisko, wspolrzedne miejsce) : Roslina(srodowisko, miejs
 	this->typ = mlecz;
 }
 
+Mlecz::Mlecz(Swiat & srodowisko, wspolrzedne miejsce, int sila, int wiek) : Roslina(srodowisko, miejsce, sila, wiek)
+{
+	this->inicjatywa = 0;
+	this->typ = mlecz;
+}
+
 void Mlecz::akcja()
 {
 	Roslina::akcja();

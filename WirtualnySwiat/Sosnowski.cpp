@@ -11,6 +11,12 @@ Sosnowski::Sosnowski(Swiat& srodowisko, wspolrzedne miejsce) : Roslina(srodowisk
 	this->typ = barszcz;
 }
 
+Sosnowski::Sosnowski(Swiat & srodowisko, wspolrzedne miejsce, int sila, int wiek) : Roslina(srodowisko, miejsce, sila, wiek)
+{
+	this->inicjatywa = 0;
+	this->typ = barszcz;
+}
+
 void Sosnowski::akcja()
 {
 	for (Organizm* org : swiat.getOrganizmy()) {								// sprawdzenie czy woko³o s¹ ¿ywe organizmy

@@ -6,6 +6,10 @@ Roslina::Roslina(Swiat& srodowisko, wspolrzedne miejsce) : Organizm(srodowisko, 
 {
 }
 
+Roslina::Roslina(Swiat & srodowisko, wspolrzedne miejsce, int sila, int wiek) : Organizm(srodowisko, miejsce, sila, wiek)
+{
+}
+
 void Roslina::akcja()
 {
 	// ROZPRZESTRZENIANIE ROŒLIN

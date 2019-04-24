@@ -11,6 +11,12 @@ WilczeJagody::WilczeJagody(Swiat& srodowisko, wspolrzedne miejsce) : Roslina(sro
 	this->typ = jagody;
 }
 
+WilczeJagody::WilczeJagody(Swiat & srodowisko, wspolrzedne miejsce, int sila, int wiek) : Roslina(srodowisko, miejsce, sila, wiek)
+{
+	this->inicjatywa = 0;
+	this->typ = jagody;
+}
+
 void WilczeJagody::kolizja(Organizm* drugi)
 {
 	drugi->setCzyZyje(false);		// po zjedzeniu wilczych jagód ka¿de zwierzê umiera

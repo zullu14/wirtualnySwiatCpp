@@ -10,6 +10,12 @@ Owca::Owca(Swiat& srodowisko, wspolrzedne miejsce) : Zwierze(srodowisko, miejsce
 	this->typ = owca;
 }
 
+Owca::Owca(Swiat & srodowisko, wspolrzedne miejsce, int sila, int wiek) : Zwierze(srodowisko, miejsce, sila, wiek)
+{
+	this->inicjatywa = 4;
+	this->typ = owca;
+}
+
 void Owca::rysowanie() const
 {
 	cout << "O";
