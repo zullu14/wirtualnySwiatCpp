@@ -13,6 +13,8 @@
 #include "Lis.h"
 #include "Antylopa.h"
 #include "Czlowiek.h"
+#include "stale.h"
+
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
@@ -21,6 +23,7 @@
 #include <vector>
 #include <algorithm>
 #include <iterator>
+#include <conio.h>
 
 
 Swiat::Swiat(size_t rows, size_t cols)
@@ -46,8 +49,11 @@ void Swiat::wykonajTure()
 	// nastêpnie dodaj do listy organizmów wszystkie nowo narodzone
 	dodajNoweOrganizmy();
 
-	// narysuj obecny stan œwiata
+	// narysuj obecny stan œwiata wraz z komunikatami
 	rysujSwiat();
+
+	// obs³uga klawiatury
+	obslugaKlawiatury();
 
 	// na koniec dolicz kolejn¹ turê
 	tura++;
@@ -79,7 +85,7 @@ void Swiat::rysujSwiat()
 		cout << "#";
 	cout << endl;
 	if (tura > 0) {
-		cout  << "***** Komunikaty *****" << endl;
+		cout  << "***** KOMUNIKATY *****" << endl;
 		for (string info : komunikaty) {
 			cout << info << endl;
 		}
@@ -118,6 +124,8 @@ void Swiat::stworzSwiat()
 	}
 	dodajNoweOrganizmy();
 	rysujSwiat();
+	// obs³uga klawiatury - przed pierwsz¹ tur¹
+	obslugaKlawiatury();
 	tura++;
 }
 
@@ -158,6 +166,60 @@ void Swiat::dodajNoweOrganizmy()
 	noweOrganizmy.erase(remove(noweOrganizmy.begin(), noweOrganizmy.end(), nullptr), noweOrganizmy.end());
 	move(noweOrganizmy.begin(), noweOrganizmy.end(), back_inserter(organizmy));
 	noweOrganizmy.clear();
+}
+
+void Swiat::obslugaKlawiatury()
+{
+	cout << "***** WYBOR AKCJI ***** " << endl;
+	bool czyCzlowiekZyje = false;
+	int licznik = -1;
+	kierunek = -1;
+	unsigned char klawisz;
+
+	// sprawdzenie czy Czlowiek zyje i spisanie licznika specjalnej umiejêtnoœci
+	for (Organizm* org : organizmy) {
+		if (dynamic_cast<Czlowiek*>(org) != nullptr) {
+			czyCzlowiekZyje = true;
+			licznik = dynamic_cast<Czlowiek*>(org)->getLicznik();
+			break;
+		}
+	}
+	if (czyCzlowiekZyje) {
+		cout << "* klawisze strzalek (prawo, lewo, gora, dol) - ruch Czlowieka" << endl;
+		if (licznik > 5) cout << "* Tarcza Alzura jest aktywna" << endl;
+		else if (licznik > 0 && licznik <= 5) cout << "Tarcza Alzura bedzie aktywna za " << licznik << " tur" << endl;
+		else if (licznik == 0) cout << "* SPACJA - aktywacja Tarczy Alzura" << endl;
+	}
+	else
+		cout << "* klawisze strzalek - kolejna tura" << endl;
+	
+	// próbuj tak d³ugo, a¿ zostanie wybrana strza³ka lub inne specjalne opcje
+	while (1) {
+		klawisz = _getch();
+		if (klawisz == STRZALKI) {
+			klawisz = _getch();
+			switch (klawisz)
+			{
+			case PRAWO:
+				kierunek = prawo;
+				break;
+			case LEWO:
+				kierunek = lewo;
+				break;
+			case GORA:
+				kierunek = gora;
+				break;
+			case DOL:
+				kierunek = dol;
+				break;
+			}
+			break;					// tylko jak by³a naciœniêta strza³ka to bêdzie wyjœcie z pêtli czytania znaków
+		}
+		else if (klawisz == SPACJA && licznik == 0) {			// jezeli jest mo¿liwoœæ, to zamiast ruchu mo¿na odpaliæ umiejêtnoœæ
+			kierunek = spacja;
+			break;					// w takim wypadku te¿ nastepuje wyjœcie z pêtli czytania znaków
+		}
+	}
 }
 
 void Swiat::dodajOrganizm(rodzaj typ, wspolrzedne miejsce)

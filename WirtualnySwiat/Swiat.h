@@ -12,6 +12,7 @@ public:
 	void rysujSwiat();
 	void stworzSwiat();
 	int getTura() const { return tura; }
+	int getKierunek() const { return kierunek; }
 	size_t getRows() const { return rows; }
 	size_t getCols() const { return cols; }
 	const vector<Organizm*>& getOrganizmy() const { return organizmy; }
@@ -26,10 +27,11 @@ private:
 	int tura;
 	size_t rows, cols;
 	vector<string> komunikaty;
-
+	int kierunek;
 	friend bool porownajOrganizmy(Organizm* org1, Organizm* org2);
 	
 	void usunOrganizmy();
 	void dodajNoweOrganizmy();
+	void obslugaKlawiatury();
 };
 

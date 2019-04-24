@@ -60,6 +60,9 @@
     <ClInclude Include="Czlowiek.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="stale.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Swiat.cpp">

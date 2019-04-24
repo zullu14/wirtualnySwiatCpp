@@ -119,6 +119,7 @@
     <ClInclude Include="Owca.h" />
     <ClInclude Include="Roslina.h" />
     <ClInclude Include="Sosnowski.h" />
+    <ClInclude Include="stale.h" />
     <ClInclude Include="Swiat.h" />
     <ClInclude Include="Trawa.h" />
     <ClInclude Include="WilczeJagody.h" />

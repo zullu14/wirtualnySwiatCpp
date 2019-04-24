@@ -13,12 +13,9 @@ int main() {
 	Swiat ziemia(w,k);
 
 	ziemia.stworzSwiat();
-	cout << "Organizmow w swiecie jest " << ziemia.getOrganizmy().size() << endl;
-	system("pause");
 
-	for (int i = 0; i < 25; i++) {
+	for (int i = 0; i < 50; i++) {
 	ziemia.wykonajTure();
-	system("pause");
 	}
 	cout << "Organizmow w swiecie jest " << ziemia.getOrganizmy().size() << endl;
 
