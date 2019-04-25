@@ -29,8 +29,17 @@
 
 
 Swiat::Swiat(size_t rows, size_t cols)
-	: rows{rows}, cols{cols}, tura{0}
+	: rows{rows}, cols{cols}, tura{0}, koniecGry{false}
 {
+}
+
+void Swiat::rozpocznijGre()
+{
+	stworzSwiat();
+	while (!koniecGry)
+	{
+		wykonajTure();
+	}
 }
 
 void Swiat::wykonajTure()
@@ -230,6 +239,10 @@ void Swiat::obslugaKlawiatury()
 			}
 			else cout << endl << "Nie udalo sie wczytac stanu gry! " << endl;
 		}
+		else if (klawisz == ESC) {
+			koniecGry = true;		// zakonczenie gry
+			break;					// w takim wypadku te¿ nastepuje wyjœcie z pêtli czytania znaków
+		}
 	}
 }
 
@@ -258,6 +271,7 @@ int Swiat::piszMenu()
 	// w obu wypadkach jeszcze opcje:
 	cout << "* klawisz S - zapis stanu gry" << endl;
 	cout << "* klawisz L - wczytanie ostatniego zapisu stanu gry" << endl;
+	cout << "* klawisz ESC - wyjscie z gry" << endl;
 	return licznik;
 }
 

@@ -8,9 +8,7 @@ class Swiat
 {
 public:
 	Swiat(size_t rows, size_t cols);
-	void wykonajTure();
-	void rysujSwiat();
-	void stworzSwiat();
+	void rozpocznijGre();
 	int getTura() const { return tura; }
 	int getKierunek() const { return kierunek; }
 	size_t getRows() const { return rows; }
@@ -28,8 +26,12 @@ private:
 	size_t rows, cols;
 	vector<string> komunikaty;
 	int kierunek;
+	bool koniecGry;
 	friend bool porownajOrganizmy(Organizm* org1, Organizm* org2);
 	
+	void wykonajTure();
+	void rysujSwiat();
+	void stworzSwiat();
 	void dodajOrganizm(rodzaj typ, wspolrzedne miejsce, int sila, int wiek, int licznik);
 	void usunOrganizmy();
 	void dodajNoweOrganizmy();

@@ -30,7 +30,7 @@ void Czlowiek::akcja()
 
 	switch (kierunek) {
 	case prawo:
-		if (nowePolozenie.y < swiat.getCols())
+		if (nowePolozenie.y < swiat.getCols()-1)
 			nowePolozenie.y += 1;
 		break;
 	case lewo:
@@ -42,7 +42,7 @@ void Czlowiek::akcja()
 			nowePolozenie.x -= 1;
 		break;
 	case dol:
-		if (nowePolozenie.x < swiat.getRows())
+		if (nowePolozenie.x < swiat.getRows()-1)
 			nowePolozenie.x += 1;
 		break;
 	case spacja:				// obs³uga specjalnej umiejêtnoœci

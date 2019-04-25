@@ -13,7 +13,7 @@ Roslina::Roslina(Swiat & srodowisko, wspolrzedne miejsce, int sila, int wiek) : 
 void Roslina::akcja()
 {
 	// ROZPRZESTRZENIANIE ROŒLIN
-	if (!(rand() % 10)) {			// gdy bêdzie 0 spoœród 0-9 (10% szans)
+	if (!(rand() % 20)) {			// gdy bêdzie 0 spoœród 0-19 (5% szans)
 		bool juzZajete = false;
 		wspolrzedne nowePolozenie = losujPolozenie();
 

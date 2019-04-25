@@ -12,14 +12,7 @@ int main() {
 	cin >> k;
 	Swiat ziemia(w,k);
 
-	ziemia.stworzSwiat();
-
-	for (int i = 0; i < 50; i++) {
-	ziemia.wykonajTure();
-	}
-	cout << "Organizmow w swiecie jest " << ziemia.getOrganizmy().size() << endl;
-
-	system("pause");
+	ziemia.rozpocznijGre();
 
 	return 0;
 }
