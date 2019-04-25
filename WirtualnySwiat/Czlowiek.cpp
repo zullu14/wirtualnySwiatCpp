@@ -2,6 +2,7 @@
 #include "Swiat.h"
 #include "stale.h"
 #include <iostream>
+#include <Windows.h>
 using namespace std;
 
 
@@ -67,7 +68,10 @@ void Czlowiek::akcja()
 
 void Czlowiek::rysowanie() const
 {
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, 14);
 	cout << "C";
+	SetConsoleTextAttribute(hConsole, 7);
 }
 
 bool Czlowiek::czyOdbilAtak(const Organizm* atakujacy)

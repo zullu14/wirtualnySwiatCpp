@@ -12,6 +12,7 @@
 #include "Zolw.h"
 #include "Lis.h"
 #include "Antylopa.h"
+#include "CyberOwca.h"
 #include "Czlowiek.h"
 #include "stale.h"
 
@@ -98,14 +99,30 @@ void Swiat::rysujSwiat()
 void Swiat::stworzSwiat()
 {
 	srand(time(nullptr));							// rusza RNG
-	int populacja = (rows*cols) / 20;				// 5% zaludnienia
+	int populacja = (rows*cols) / 14;				// ok. 7% zaludnienia
 	int x, y, r;
 	x = rand() % rows;
 	y = rand() % cols;
 	bool juzZajete = false;
 
-	// najpierw stwórz cz³owieka
+	// najpierw stwórz cz³owieka i cyber-owcê
 	dodajOrganizm(czlowiek, { x,y });
+	while (true)
+	{
+		x = rand() % rows;
+		y = rand() % cols;
+		juzZajete = false;
+		for (Organizm* &org : noweOrganizmy) {			// sprawdzenie czy dane miejsce jest wolne
+			if (org->getPolozenie().x == x && org->getPolozenie().y == y) {
+				juzZajete = true;
+				break;
+			}
+		}
+		if (!juzZajete) {
+			dodajOrganizm(cyberowca, { x,y });
+			break;										// dopiero jak dodasz cyber-owcê to wyjdŸ z pêtli while
+		}
+	}
 
 	// nastêpnie stwórz resztê organizmów
 	for (int i = 0; i < populacja; ) {
@@ -177,7 +194,7 @@ void Swiat::obslugaKlawiatury()
 	kierunek = -1;
 	unsigned char klawisz;
 
-	while (1) {
+	while (true) {
 		klawisz = _getch();
 		if (klawisz == STRZALKI) {
 			klawisz = _getch();
@@ -347,6 +364,9 @@ void Swiat::dodajOrganizm(rodzaj typ, wspolrzedne miejsce, int sila, int wiek, i
 	case czlowiek:
 		organizmy.push_back(new Czlowiek(*this, miejsce, sila, wiek, licznik));
 		break;
+	case cyberowca:
+		organizmy.push_back(new CyberOwca(*this, miejsce, sila, wiek));
+		break;
 	}
 }
 
@@ -386,6 +406,9 @@ void Swiat::dodajOrganizm(rodzaj typ, wspolrzedne miejsce)
 		break;
 	case czlowiek:
 		noweOrganizmy.push_back(new Czlowiek(*this, miejsce));
+		break;
+	case cyberowca:
+		noweOrganizmy.push_back(new CyberOwca(*this, miejsce));
 		break;
 	}
 

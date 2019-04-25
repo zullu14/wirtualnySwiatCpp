@@ -50,6 +50,8 @@ string Organizm::getTypToString() const
 		return "barszcz Sosnowskiego";
 	case czlowiek:
 		return "Czlowiek";
+	case cyberowca:
+		return "cyber-owca";
 	default:
 		return "obcy";
 	}
